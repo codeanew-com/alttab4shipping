@@ -3,9 +3,27 @@
 A single static page with a quote form. There's no framework and no build step. The site is hosted on **Cloudflare Pages**, and form submissions are handled by one **Pages Function**.
 
 ```
-public/index.html        the website (logos are embedded, no other assets)
-functions/api/quote.js   POST /api/quote, which validates the form, filters spam and sends the email
+.
+├── functions/
+│   └── api/
+│       └── quote.js            POST /api/quote: validates the form, filters spam, sends the email
+├── public/                     everything served by Cloudflare Pages
+│   ├── index.html
+│   ├── favicon.ico
+│   ├── favicon.svg
+│   ├── apple-touch-icon.png
+│   ├── site.webmanifest
+│   └── assets/
+│       ├── css/main.css
+│       ├── js/main.js          quote form behaviour
+│       └── images/
+│           ├── brand/          logo mark, share (OG) image
+│           ├── carriers/       carrier logos (SVG)
+│           └── icons/          app and fallback icons
+└── README.md
 ```
+
+Favicons and the manifest stay at the site root because browsers request them there.
 
 ## Deploy on Cloudflare Pages
 
