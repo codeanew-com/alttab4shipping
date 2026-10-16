@@ -102,4 +102,3 @@ Never commit a real API key.
 
 - Connect `alttab4shipping.com` in Cloudflare Pages (Custom domains).
 - Make `info@alttab4shipping.com` receive mail (forward it to an inbox), since it's the address shown on the site.
-- Confirm the working hours and the "220+ countries reachable" line in the hero.
