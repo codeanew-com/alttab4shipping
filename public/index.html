@@ -23,14 +23,15 @@
 <meta name="description" content="Alttab Info Shipping arranges international courier, air freight, e-commerce shipping and customs paperwork from the UAE.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Sofia+Sans:wght@400..700&display=swap">
 <style>
 /* Layout: floating pill nav → 2-up headline → dark stadium route frame → circle-portrait service constellation with orange orbits → carrier pills → steps → contact → ink footer. Single warm-light theme by design. */
 :root {
   --canvas: #F3F0EE;
   --lifted: #FCFBFA;
   --white: #FFFFFF;
-  --ink: #141413;
+  --ink: #0B2545;
+  --brand-font: "Montserrat", "Sofia Sans", Arial, sans-serif;
   --slate: #696969;
   --ghost: #E8E2DA;
   --dust: #D1CDC7;
@@ -69,11 +70,14 @@ a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-rad
 /* Nav */
 .nav-shell { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); z-index: 10; padding-top: 24px; }
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: rgba(255,255,255,.92); backdrop-filter: blur(10px); border-radius: 999px; box-shadow: var(--sh1); padding: 10px 12px 10px 28px; }
-.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
-.logo { width: 34px; height: 22px; position: relative; flex: none; }
-.logo i { position: absolute; top: 0; width: 22px; height: 22px; border-radius: 50%; }
-.logo i:first-child { left: 0; background: var(--ink); }
-.logo i:last-child { right: 0; background: var(--orbit); mix-blend-mode: multiply; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; }
+.brand img { height: 44px; width: auto; flex: none; }
+.wordmark { display: grid; justify-items: start; font-family: var(--brand-font); line-height: 1; }
+.wordmark b { font-weight: 800; font-size: 24px; letter-spacing: 0.06em; color: var(--ink); }
+.wordmark small { font-weight: 600; font-size: 9.5px; letter-spacing: 0.42em; color: var(--signal); margin-top: 4px; text-transform: uppercase; }
+footer .wordmark b { color: var(--white); font-size: 32px; }
+footer .wordmark small { font-size: 12px; }
+footer .wordmark { margin-bottom: 40px; }
 .nav ul { display: flex; gap: 40px; list-style: none; margin: 0; padding: 0; }
 .nav ul a { text-decoration: none; font-weight: 500; letter-spacing: -0.03em; }
 
@@ -110,7 +114,7 @@ section { padding-block: 112px; }
 .portrait { position: relative; width: min(260px, 100%); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; box-shadow: var(--sh2); margin-bottom: 12px; }
 .portrait svg { width: 38%; height: 38%; }
 .p1 { background: radial-gradient(circle at 35% 30%, #F9A06B, #CF4500 75%); color: var(--lifted); }
-.p2 { background: radial-gradient(circle at 35% 30%, #3A3936, #141413 75%); color: var(--orbit); }
+.p2 { background: radial-gradient(circle at 35% 30%, #24456E, #0B2545 75%); color: var(--orbit); }
 .p3 { background: radial-gradient(circle at 35% 30%, #FFFFFF, #E8E2DA 80%); color: var(--ink); }
 .sat { position: absolute; right: -6%; bottom: 4%; width: 56px; height: 56px; border-radius: 50%; background: var(--white); color: var(--ink); display: grid; place-items: center; font-size: 22px; text-decoration: none; box-shadow: var(--sh1); transition: transform .2s; }
 .sat:hover { transform: translateX(3px); }
@@ -152,7 +156,7 @@ section { padding-block: 112px; }
 .field.full { grid-column: 1 / -1; }
 .field label { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--slate); }
 .field label .opt { font-weight: 450; text-transform: none; letter-spacing: 0; }
-.field input, .field select, .field textarea { font: inherit; color: var(--ink); background: var(--lifted); border: 1px solid rgba(20,20,19,.3); border-radius: 999px; padding: 12px 20px; min-height: 48px; width: 100%; }
+.field input, .field select, .field textarea { font: inherit; color: var(--ink); background: var(--lifted); border: 1px solid rgba(11,37,69,.3); border-radius: 999px; padding: 12px 20px; min-height: 48px; width: 100%; }
 .field textarea { border-radius: 24px; min-height: 110px; resize: vertical; }
 .field select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: calc(100% - 24px) 50%, calc(100% - 19px) 50%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 44px; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(243,115,56,.25); }
@@ -190,6 +194,10 @@ footer h2 { font-size: clamp(32px, 4.5vw, 48px); line-height: 1.05; max-width: 1
   body { padding-inline: 16px; }
   footer { margin-inline: -16px; padding-inline: 16px; }
   .nav ul { display: none; }
+  .brand img { height: 36px; }
+  .wordmark b { font-size: 20px; }
+  .wordmark small { font-size: 8px; letter-spacing: 0.36em; }
+  .nav .btn { padding-inline: 16px; }
   .nav { padding-left: 20px; }
   .hero, .sec-head, .contact { grid-template-columns: 1fr; gap: 24px; }
   .hero { padding-block: 56px 32px; }
@@ -215,7 +223,7 @@ footer h2 { font-size: clamp(32px, 4.5vw, 48px); line-height: 1.05; max-width: 1
 <body>
 <div class="nav-shell wrap">
   <nav class="nav" aria-label="Main">
-    <a class="brand" href="#top"><span class="logo"><i></i><i></i></span>Alttab Info Shipping</a>
+    <a class="brand" href="#top" aria-label="Alttab For Shipping, home"><img src="/logo-mark.png" alt="" width="264" height="144"><span class="wordmark"><b>ALTTAB</b><small>For Shipping</small></span></a>
     <ul>
       <li><a href="#services">Services</a></li>
       <li><a href="#carriers">Carriers</a></li>
@@ -442,6 +450,7 @@ footer h2 { font-size: clamp(32px, 4.5vw, 48px); line-height: 1.05; max-width: 1
 
 <footer>
   <div class="wrap">
+    <div class="wordmark" aria-hidden="true"><b>ALTTAB</b><small>For Shipping</small></div>
     <h2>We're here whenever your shipment needs to move.</h2>
     <div class="fcols">
       <div><h4>Services</h4><ul><li><a href="#services">International courier</a></li><li><a href="#services">Air freight</a></li><li><a href="#services">E-commerce shipping</a></li><li><a href="#services">Customs paperwork</a></li></ul></div>
