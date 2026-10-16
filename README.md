@@ -1,10 +1,15 @@
-# Alttab For Shipping website
+# Alttab For Shipping
 
-Company website for **Alttab For Shipping**, a courier and freight desk in Deira, Dubai. It's one static page with a quote form. There's no framework and no build step.
+Marketing website for Alttab For Shipping, a courier and freight forwarding company based in Dubai.
 
-- **Live:** https://alttab4shipping.pages.dev (custom domain `alttab4shipping.com` still to be connected)
-- **Hosting:** Cloudflare Pages, with one Pages Function for the form
-- **Email sending:** Resend, from the verified domain `alttab4shipping.com`
+A static, dependency-free site with a serverless quote request endpoint.
+
+## Stack
+
+- **Frontend:** HTML, CSS and vanilla JavaScript. No framework and no build step.
+- **Hosting:** [Cloudflare Pages](https://pages.cloudflare.com/)
+- **API:** [Cloudflare Pages Functions](https://developers.cloudflare.com/pages/functions/)
+- **Email delivery:** [Resend](https://resend.com/)
 
 ## Project structure
 
@@ -12,92 +17,69 @@ Company website for **Alttab For Shipping**, a courier and freight desk in Deira
 .
 ├── functions/
 │   └── api/
-│       └── quote.js            POST /api/quote: validates the form, filters spam, sends the email
-├── public/                     everything served by Cloudflare Pages
-│   ├── index.html
-│   ├── favicon.ico
-│   ├── favicon.svg
-│   ├── apple-touch-icon.png
-│   ├── site.webmanifest
-│   └── assets/
-│       ├── css/main.css        all styles; colour and font tokens are at the top
-│       ├── js/main.js          quote form behaviour
-│       └── images/
-│           ├── brand/          logo mark, share (OG) image
-│           ├── carriers/       carrier logos (SVG)
-│           └── icons/          app and fallback icons
-└── README.md
+│       └── quote.js          Quote request endpoint
+└── public/                   Static site root
+    ├── index.html
+    ├── favicon.ico
+    ├── favicon.svg
+    ├── apple-touch-icon.png
+    ├── site.webmanifest
+    └── assets/
+        ├── css/
+        │   └── main.css
+        ├── js/
+        │   └── main.js
+        └── images/
+            ├── brand/
+            ├── carriers/
+            └── icons/
 ```
 
-Favicons and the manifest stay at the site root because browsers request them there.
+## Getting started
 
-## Common edits
-
-| To change | Edit |
-|---|---|
-| Address, phone, email, licence no., hours | `public/index.html`, Contact section and footer |
-| Services list | `public/index.html` (`#services`), and the `SERVICES` list in `functions/api/quote.js` so the form still accepts them |
-| Carrier logos | Add or replace the SVG in `assets/images/carriers/`, then update the list in `index.html` (`#carriers`) |
-| Colours and fonts | Tokens at the top of `assets/css/main.css` |
-| Share preview text and image | `<meta property="og:…">` tags in the `<head>` of `index.html` |
-
-## Brand
-
-| | Value |
-|---|---|
-| Navy (primary) | `#0B2545` |
-| Orange (accent) | `#CF4500` |
-| Light orange (route lines only) | `#F37338` |
-| Background | `#F3F0EE` |
-| Logo type | Montserrat ExtraBold ("ALTTAB"), Montserrat SemiBold ("FOR SHIPPING") |
-| Body type | Sofia Sans |
-
-## Deploy on Cloudflare Pages
-
-1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → pick `codeanew-com/alttab4shipping`.
-2. Build settings:
-   - Framework preset: **None**
-   - Build command: *(leave empty)*
-   - Build output directory: `public`
-3. **Settings → Variables and Secrets**, for Production:
-   | Name | Type | Example |
-   |---|---|---|
-   | `QUOTE_TO` | Text | inbox that receives quote requests |
-   | `QUOTE_FROM` | Text | `Alttab Website <no-reply@alttab4shipping.com>` |
-   | `RESEND_API_KEY` | Secret | Resend key with **Sending access** for `alttab4shipping.com` only |
-4. Redeploy so the variables take effect.
-5. **Custom domains** → add `alttab4shipping.com` and `www.alttab4shipping.com`.
-
-The `functions/` folder at the repo root is picked up automatically. Each push to `main` deploys.
-
-The share image tags use absolute `https://alttab4shipping.com/...` URLs, so link previews only work once the custom domain is connected.
-
-## How the form works
-
-1. The browser checks the required fields, then POSTs the form to `/api/quote` in the background.
-2. The function rejects bots silently: the hidden `website` field must be empty, and the form must have been open for at least 3 seconds.
-3. It validates every field on the server, including lengths, email format and an allowed service list.
-4. `deliver()` emails the request to `QUOTE_TO` through Resend, with **Reply-To** set to the customer's email, so replying goes straight to them.
-5. The page shows "request sent". If sending fails, it shows the contact email instead.
-
-To change email provider, edit only `deliver()` in `functions/api/quote.js`.
-
-## Run locally
+Requirements: Node.js 18 or later.
 
 ```sh
+git clone https://github.com/codeanew-com/alttab4shipping.git
+cd alttab4shipping
 npx wrangler pages dev public
 ```
 
-Put local variables in `.dev.vars`, which is git-ignored:
+The site is then served at `http://localhost:8788`, with the API available under `/api`.
 
-```
-QUOTE_TO=you@example.com
-QUOTE_FROM=Alttab Website <no-reply@alttab4shipping.com>
-RESEND_API_KEY=re_...
-```
+Local environment variables go in a `.dev.vars` file at the project root. This file is git-ignored.
 
-Never commit a real API key.
+## Configuration
 
-## Still to do
+The quote endpoint reads the following environment variables:
 
-- Connect `alttab4shipping.com` in Cloudflare Pages (Custom domains).
+| Variable | Description |
+|---|---|
+| `RESEND_API_KEY` | Resend API key. Store as a secret. |
+| `QUOTE_FROM` | Sender address on a domain verified in Resend. |
+| `QUOTE_TO` | Address that receives quote requests. |
+
+In production, set them under **Cloudflare Pages → Settings → Variables and Secrets**.
+
+## Deployment
+
+The project deploys automatically to Cloudflare Pages on every push to `main`.
+
+| Setting | Value |
+|---|---|
+| Framework preset | None |
+| Build command | *(none)* |
+| Build output directory | `public` |
+
+Cloudflare picks up the `functions/` directory automatically.
+
+## Customisation
+
+- **Content:** `public/index.html`
+- **Colours and typography:** design tokens at the top of `public/assets/css/main.css`
+- **Carrier logos:** `public/assets/images/carriers/`
+- **Accepted services:** must match between the form in `index.html` and the allow-list in `functions/api/quote.js`
+
+## License
+
+Proprietary. © 2026 Alttab For Shipping. All rights reserved.
