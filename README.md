@@ -101,4 +101,3 @@ Never commit a real API key.
 ## Still to do
 
 - Connect `alttab4shipping.com` in Cloudflare Pages (Custom domains).
-- Make `info@alttab4shipping.com` receive mail (forward it to an inbox), since it's the address shown on the site.

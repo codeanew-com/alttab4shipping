@@ -23,7 +23,7 @@
           if (!r.ok) throw new Error();
           form.reset();
           document.getElementById('q-started').value = Date.now();
-          show('Thanks, your request has been sent. We will reply within one business day.', true);
+          show('Thanks, your request has been sent. We will reply the same day.', true);
         })
         .catch(function () { show('The request could not be sent. Please email us at ' + form.dataset.email + '.', false); })
         .finally(function () { btn.disabled = false; btn.textContent = 'Send request →'; });
