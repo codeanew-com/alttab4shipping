@@ -218,6 +218,11 @@ footer h2 { font-size: clamp(32px, 4.5vw, 48px); line-height: 1.05; max-width: 1
   .fcols { grid-template-columns: 1fr; }
   .ghost { top: -40px; right: 0; }
 }
+@media (max-width: 1180px) {
+  .contact { grid-template-columns: 1fr; gap: 40px; }
+  .contact .info { grid-template-columns: 1fr 1fr; gap: 32px 48px; align-items: start; }
+}
+@media (max-width: 767px) { .contact .info { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
