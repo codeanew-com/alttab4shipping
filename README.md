@@ -1,4 +1,4 @@
-# Alttab Info Shipping website
+# Alttab For Shipping website
 
 A single static page with a quote form. There's no framework and no build step. The site is hosted on **Cloudflare Pages**, and form submissions are handled by one **Pages Function**.
 
